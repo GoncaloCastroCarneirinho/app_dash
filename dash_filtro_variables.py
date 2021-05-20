@@ -20,7 +20,8 @@ import datetime
 
 from pygraphtec import  lee_fichero_sesion
 
-df = lee_fichero_sesion("201112-165432.csv", path_sesiones='/Users/scpgo/.spyder-py3/dataLogger')
+#df = lee_fichero_sesion("201112-165432.csv", path_sesiones='/Users/scpgo/.spyder-py3/dataLogger')
+df = lee_fichero_sesion("201112-180010.csv", path_sesiones='/Users/scpgo/.spyder-py3/dataLogger')
 
 app = dash.Dash()
 
@@ -56,7 +57,8 @@ def name_to_figure(value,start_date,end_date):
     if value is None or len(value)==0 or start_date not in df.index:
         figure = {}
     else:
-        figure=px.line(df[value]) #se crea figura que representa todas las variables
+        df_date_filter = df.loc[start_date:end_date]
+        figure=px.line(df_date_filter[value]) #se crea figura que representa todas las variables
                                    #fig_names corresponde a la variable global (línea 25)
     return dcc.Graph(figure=figure)
 
